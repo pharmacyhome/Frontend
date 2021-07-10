@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import style from './AuthForm.scss';
@@ -11,21 +11,29 @@ export const AuthForm = () => {
    const [ login, setLogin] = useState ('');
    const [ password, setPassword] = useState ('');
    const dispatch = useDispatch();
-       
+
+   const handleButtonClick = useCallback (
+       () => {
+         dispatch(setAuthData({login, password}));  
+       },
+       [login, password],
+   );
+
+
     return (
         <>
             <form className={style.form} noValidate autoComplete="off">
                 <TextField  
                     label="Login" 
                     variant="outlined" 
-                    value={login}  
+                    value={login}
                     onChange={(e) => setLogin(e.target.value)}/>
                 <TextField  
                     label="Password" 
                     variant="outlined" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}/>
-                    <Button onClick={() => dispatch(setAuthData({login, password}))} variant="contained" color="secondary">
+                    <Button onClick={handleButtonClick} variant="contained" color="secondary">
                     Login
                 </Button>
             </form>
