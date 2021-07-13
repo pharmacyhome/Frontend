@@ -15,10 +15,8 @@ export const AuthForm = () => {
    const handleButtonClick = useCallback (
        () => {
          dispatch(setAuthData({login, password}));  
-       },
-       [login, password],
-   );
-
+       }, [dispatch, login, password],
+    );
 
     return (
         <>
